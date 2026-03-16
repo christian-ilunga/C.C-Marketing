@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }} | Your Social Media Marketer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-mark">SM</span>
+                <span class="logo-text">Social Media Marketing</span>
+            </div>
+            <nav class="main-nav">
+                <a href="#services">Services</a>
+                <a href="#process">Process</a>
+                <a href="#results">Results</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Grow your brand with a dedicated social media marketer.</h1>
+                    <p>I help businesses increase visibility, engagement, and sales through strategic content and paid campaigns across the platforms your customers actually use.</p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary">Book a free strategy call</a>
+                        <button type="button" class="btn btn-outline" onclick="openWhatsApp()">
+                            Chat on WhatsApp
+                        </button>
+                    </div>
+                    <p class="hero-subtext">Done-for-you social media management, content creation, and advertising.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="container">
+                <h2>What I can do for your business</h2>
+                <div class="card-grid">
+                    <article class="card">
+                        <h3>Social media strategy</h3>
+                        <p>Clear, data-backed content and posting strategy tailored to your brand, industry, and goals.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Content creation & management</h3>
+                        <p>End-to-end content planning, creation, scheduling, and community management across channels.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Paid social campaigns</h3>
+                        <p>High-converting campaigns on Meta, TikTok, LinkedIn and more, with transparent reporting.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="section section-alt">
+            <div class="container">
+                <h2>Simple, transparent process</h2>
+                <ol class="steps">
+                    <li>
+                        <h3>1. Discovery</h3>
+                        <p>We discuss your business, audience, and goals to understand what success looks like for you.</p>
+                    </li>
+                    <li>
+                        <h3>2. Strategy</h3>
+                        <p>I create a clear, practical social media plan that fits your brand voice and resources.</p>
+                    </li>
+                    <li>
+                        <h3>3. Execution & optimisation</h3>
+                        <p>Content, campaigns and reporting handled for you, with ongoing optimisation based on results.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="results" class="section">
+            <div class="container">
+                <h2>Why clients work with me</h2>
+                <div class="stats">
+                    <div>
+                        <strong>+200%</strong>
+                        <span>Average growth in engagement in the first 90 days.</span>
+                    </div>
+                    <div>
+                        <strong>10+</strong>
+                        <span>Brands managed across different industries.</span>
+                    </div>
+                    <div>
+                        <strong>100%</strong>
+                        <span>Custom strategy for every single client.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section section-contact">
+            <div class="container contact-grid">
+                <div>
+                    <h2>Let’s talk about your social media</h2>
+                    <p>Share a bit about your business and what you’d like to achieve. I’ll get back to you personally.</p>
+
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li class="message message-{{ message.tags }}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_name">Name</label>
+                        <input type="text" id="id_name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email</label>
+                        <input type="email" id="id_email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_message">How can I help?</label>
+                        <textarea id="id_message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                    <p class="or-text">or</p>
+                    <button type="button" class="btn btn-outline" onclick="openWhatsApp()">
+                        Continue on WhatsApp
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div id="chat-widget" class="chat-widget" onclick="openWhatsApp()">
+        <div class="chat-widget-icon">💬</div>
+        <div class="chat-widget-text">
+            Have a question? <span>Chat on WhatsApp</span>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ now|default:2026 }} Social Media Marketing. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function openWhatsApp() {
+            // TODO: replace with your full phone number in international format, e.g. 27721234567
+            const phoneNumber = "{{ whatsapp_number|default:'YOUR_PHONE_NUMBER' }}";
+            const message = encodeURIComponent("Hi! I just visited your website and would like to chat about social media marketing.");
+            const url = "https://wa.me/" + phoneNumber + "?text=" + message;
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+</html>
+
+
